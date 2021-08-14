@@ -11,7 +11,9 @@ class _birthdayScreenState extends State<birthdayScreen> {
   final inputCodeController = TextEditingController();
 
   void _submitCode() {
-    if (inputCodeController.text == "24062010") {
+    if (inputCodeController.text.isEmpty)
+      return;
+    else if (inputCodeController.text == "24062010") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => dallasScreen()));
     } else {
@@ -46,21 +48,30 @@ class _birthdayScreenState extends State<birthdayScreen> {
         body: Center(
           child: Column(
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: '********',
+              Container(
+                height: 200,
+              ),
+              Container(
+                width: 200,
+                height: 35,
+                color: Colors.amber[200],
+                margin: EdgeInsets.all(25),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: '********',
+                  ),
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  controller: inputCodeController,
+                  onSubmitted: (_) => _submitCode(),
                 ),
-                controller: inputCodeController,
-                onSubmitted: (_) => _submitCode,
               ),
               OutlinedButton(
-                child: Text(
-                  'Start',
-                  style: TextStyle(
-                    fontSize: 50,
-                  ),
-                ),
-                onPressed: () {},
+                child: Icon(Icons.check),
+                onPressed: _submitCode,
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
                     width: 2,
