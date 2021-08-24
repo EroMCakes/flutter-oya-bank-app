@@ -38,7 +38,7 @@ class _dallasScreenState extends State<dallasScreen> {
           title: Text(
             'Time Zone',
             style: TextStyle(
-              color: Colors.black54,
+              color: Colors.amber,
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),

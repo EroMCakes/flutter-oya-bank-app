@@ -15,35 +15,45 @@ class startScreen extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: Text(
-            'Bienvenue chez OYA Bank',
-            style: TextStyle(
-              color: Colors.black54,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-            ),
-          ),
-          centerTitle: true,
-        ),
         body: Center(
-          child: OutlinedButton(
-            child: Text(
-              'Start',
-              style: TextStyle(
-                fontSize: 50,
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Text(
+                  'OYA Bank',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber,
+                  ),
+                ),
+                margin: EdgeInsets.all(55),
+                padding: EdgeInsets.only(bottom: 150, top: 30),
               ),
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => birthdayScreen()));
-            },
-            style: OutlinedButton.styleFrom(
-              side: BorderSide(
-                width: 2,
-                color: Colors.amber,
+              Container(
+                child: OutlinedButton(
+                  child: Text(
+                    'Start',
+                    style: TextStyle(
+                      fontSize: 50,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => birthdayScreen()));
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                      width: 2,
+                      color: Colors.amber,
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

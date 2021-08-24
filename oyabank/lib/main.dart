@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import './screens/startScreen.dart';
 
@@ -11,7 +12,12 @@ class MyApp extends StatelessWidget {
       title: 'OYA Bank',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        //Default brightness and colors for the APP
+        brightness: Brightness.dark,
         primarySwatch: Colors.amber,
+
+        //Default font
+        fontFamily: GoogleFonts.bitter().fontFamily,
       ),
       home: MyHomePage(),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:oyabank/screens/codeAnniv.dart';
 
 import 'dalasScreen.dart';
+import '../Widgets/annivshow.dart';
 
 class birthdayScreen extends StatefulWidget {
   @override
@@ -9,16 +11,19 @@ class birthdayScreen extends StatefulWidget {
 
 class _birthdayScreenState extends State<birthdayScreen> {
   final inputCodeController = TextEditingController();
+  bool _cor = true;
 
   void _submitCode() {
-    if (inputCodeController.text.isEmpty)
-      return;
-    else if (inputCodeController.text == "24062010") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => dallasScreen()));
-    } else {
-      inputCodeController.text == "";
-    }
+    setState(() {
+      if (inputCodeController.text == '24062010') {
+        _cor = true;
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => codeAnniv()));
+      } else {
+        _cor = false;
+        inputCodeController.clear();
+      }
+    });
   }
 
   @override
@@ -35,10 +40,11 @@ class _birthdayScreenState extends State<birthdayScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             'Ma fille bien aimée',
             style: TextStyle(
-              color: Colors.black54,
+              color: Colors.amber,
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),
@@ -54,18 +60,26 @@ class _birthdayScreenState extends State<birthdayScreen> {
               Container(
                 width: 200,
                 height: 35,
-                color: Colors.amber[200],
                 margin: EdgeInsets.all(25),
                 child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: '********',
-                  ),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   controller: inputCodeController,
+                  decoration: InputDecoration(
+                    fillColor: Colors.amber[200],
+                    hintText: '********',
+                    hintStyle: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    errorText: !_cor ? 'Mauvaise réponse!' : null,
+                    errorStyle: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onSubmitted: (_) => _submitCode(),
                 ),
               ),
@@ -81,6 +95,18 @@ class _birthdayScreenState extends State<birthdayScreen> {
               ),
             ],
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.amber,
+          child: Icon(
+            Icons.search,
+            color: Colors.black,
+          ),
+          onPressed: () => {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => annivShow()))
+          },
         ),
       ),
     );
