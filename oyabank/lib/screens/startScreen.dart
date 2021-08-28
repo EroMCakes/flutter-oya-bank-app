@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oyabank/screens/birthday.dart';
+import 'package:oyabank/screens/dalasScreen.dart';
 
 class startScreen extends StatelessWidget {
   @override
@@ -43,7 +44,7 @@ class startScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => birthdayScreen()));
+                            builder: (context) => dallasScreen()));
                   },
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyabank/screens/birthday.dart';
+import 'package:oyabank/screens/codeAnniv.dart';
 
 import './screens/startScreen.dart';
 
@@ -20,6 +22,12 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.bitter().fontFamily,
       ),
       home: MyHomePage(),
+      routes: {
+        '/': (context) => startScreen(),
+        '/birthdayRiddle': (context) => birthdayScreen(),
+        '/birthdaySolution': (context) => codeAnniv(),
+        ''
+      },
     );
   }
 }

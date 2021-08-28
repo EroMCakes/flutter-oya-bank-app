@@ -58,10 +58,10 @@ class _dallasScreenState extends State<dallasScreen> {
                 margin: EdgeInsets.all(25),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: '********',
+                    hintText: '******',
                     fillColor: Colors.white,
                   ),
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   textAlign: TextAlign.center,
                   controller: inputCodeController,
                   onSubmitted: (_) => _submitCode,
