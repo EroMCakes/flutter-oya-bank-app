@@ -41,10 +41,12 @@ class startScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => dallasScreen()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => dallasScreen()));
+
+                    Navigator.of(context).pushNamed('/birthdayRiddle');
                   },
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(
