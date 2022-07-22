@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'startScreen.dart';
+import 'package:video_player/video_player.dart';
+import './diamondScreen.dart';
+import './state.dart';
 
 class dallasScreen extends StatefulWidget {
   @override
@@ -9,28 +10,39 @@ class dallasScreen extends StatefulWidget {
 
 class _dallasScreenState extends State<dallasScreen> {
   final inputCodeController = TextEditingController();
-  var dallasState = "";
+  // var dallasState = "";
+  late VideoPlayerController _videoPlayerController;
+  late Future<void> _initializeVideoPlayerFuture;
 
   void _submitCode() {
     if (inputCodeController.text.isEmpty)
       return;
-    else if (inputCodeController.text == "DALLAS") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => startScreen()));
+    else if (inputCodeController.text == "DALLAS" ||
+        inputCodeController.text == "Dallas" ||
+        inputCodeController.text == 'dallas') {
+      setState(() {
+        dallasState = "dallasSolution";
+      });
     } else {
-      inputCodeController.text == "";
+      inputCodeController.clear();
     }
   }
 
   @override
   void initState() {
-    dallasState = "dallasRiddle";
+    if (dallasState == "") {
+      dallasState = "dallasRiddle";
+    }
+
+    _videoPlayerController =
+        VideoPlayerController.asset('assets/videos/videoCoffre.mp4');
+    _initializeVideoPlayerFuture = _videoPlayerController.initialize();
     super.initState();
   }
 
   @override
   void dispose() {
-    dallasState = "";
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -71,12 +83,11 @@ class _dallasScreenState extends State<dallasScreen> {
                       height: 35,
                       margin: EdgeInsets.all(25),
                       child: TextField(
-                        keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         controller: inputCodeController,
                         decoration: InputDecoration(
                           fillColor: Colors.amber[200],
-                          hintText: '********',
+                          hintText: '******',
                           hintStyle: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -86,12 +97,16 @@ class _dallasScreenState extends State<dallasScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onSubmitted: (_) => _submitCode,
+                        onSubmitted: (_) {
+                          _submitCode();
+                        },
                       ),
                     ),
                     OutlinedButton(
                       child: Icon(Icons.check),
-                      onPressed: () {},
+                      onPressed: () {
+                        _submitCode();
+                      },
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
                           width: 2,
@@ -101,7 +116,48 @@ class _dallasScreenState extends State<dallasScreen> {
                     ),
                   ],
                 )
-              : Column(),
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    FutureBuilder(
+                      future: _initializeVideoPlayerFuture,
+                      builder: (context, snapshot) {
+                        return Container(
+                          padding: EdgeInsets.only(top: 0, bottom: 15),
+                          height: MediaQuery.of(context).size.height * 0.80,
+                          child: AspectRatio(
+                            aspectRatio:
+                                _videoPlayerController.value.aspectRatio,
+                            child: GestureDetector(
+                              child: VideoPlayer(_videoPlayerController),
+                              onTap: () {
+                                setState(() {
+                                  if (_videoPlayerController.value.isPlaying) {
+                                    _videoPlayerController.pause();
+                                  } else {
+                                    _videoPlayerController.play();
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => DiamondScreen()));
+                      },
+                      child: Icon(Icons.skip_next_outlined),
+                      style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                        width: 2,
+                        color: Colors.amber,
+                      )),
+                    )
+                  ],
+                ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oyabank/screens/dalasScreen.dart';
 
 import '../Widgets/annivshow.dart';
+import 'state.dart';
 
 class birthdayScreen extends StatefulWidget {
   @override
@@ -11,11 +12,11 @@ class birthdayScreen extends StatefulWidget {
 class _birthdayScreenState extends State<birthdayScreen> {
   final inputCodeController = TextEditingController();
   bool _cor = true;
-  var gameState = "";
+  // var birthdayState = "";
 
   @override
   void initState() {
-    gameState = "birthdayRiddle";
+    birthdayState = "birthdayRiddle";
 
     super.initState();
   }
@@ -25,20 +26,13 @@ class _birthdayScreenState extends State<birthdayScreen> {
       if (inputCodeController.text == '24062010') {
         _cor = true;
         setState(() {
-          gameState = "birthdaySolution";
+          birthdayState = "birthdaySolution";
         });
       } else {
         _cor = false;
         inputCodeController.clear();
       }
     });
-  }
-
-  @override
-  void dispose() {
-    gameState = "";
-
-    super.dispose();
   }
 
   @override
@@ -57,7 +51,7 @@ class _birthdayScreenState extends State<birthdayScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(
-            gameState == "birthdaySolution"
+            birthdayState == "birthdaySolution"
                 ? 'TIROIR DU BAS'
                 : "Ma fille bien-aimée",
             style: TextStyle(
@@ -69,7 +63,7 @@ class _birthdayScreenState extends State<birthdayScreen> {
           centerTitle: true,
         ),
         body: Center(
-          child: gameState != "birthdaySolution"
+          child: birthdayState != "birthdaySolution"
               ? SingleChildScrollView(
                   child: Column(
                     children: [
@@ -132,13 +126,13 @@ class _birthdayScreenState extends State<birthdayScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.amber,
           child: Icon(
-            gameState != "birthdaySolution"
+            birthdayState != "birthdaySolution"
                 ? Icons.search
                 : Icons.skip_next_outlined,
             color: Colors.black,
           ),
           onPressed: () => {
-            gameState != "birthdaySolution"
+            birthdayState != "birthdaySolution"
                 ? Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => annivShow()))
                 : Navigator.of(context).push(
