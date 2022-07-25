@@ -2,7 +2,7 @@
     package="com.example.oyabank">
    <application
         android:label="oyabank"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launchicon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
